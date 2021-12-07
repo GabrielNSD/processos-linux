@@ -23,14 +23,14 @@ int main()
 {
     std::ifstream file("enderecos.dat");
 
-    std::vector<unsigned int> names;
+    std::vector<unsigned short> addresses; //short tem 16 bits, int tem 32
 
     int pid;
 
-    unsigned int input;
+    unsigned short input;
     while (file >> input)
     {
-        names.push_back(input);
+        addresses.push_back(input);
     }
 
     cout << "processo pai id: " << getpid() << endl;
@@ -45,19 +45,20 @@ int main()
     }
     else if (pid == 0)
     {
-        cout << "codigo do processo filho em execucao " << getpid() << endl;
+        cout << "codigo do processo filho em execucao: " << getpid() << endl;
 
         int TAMANHO_CACHE = 64;
 
         struct CacheLine *cache = inicializar(TAMANHO_CACHE);
         cout << endl;
-        directMapped(cache, TAMANHO_CACHE);
+        directMapped(cache, TAMANHO_CACHE, addresses);
+
         exit(1);
     }
     else
     {
         wait(NULL);
-        cout << "fim do processo pai" << endl;
+        cout << "fim da espera pelo fim do processo filho 1 (executado no processo pai)" << endl;
     }
 
     // Segundo processo filho, mapeamento associativo
@@ -76,13 +77,8 @@ int main()
     else
     {
         wait(NULL);
-        cout << "fim do processo pai" << endl;
+        cout << "fim da espera pelo fim do processo filho 2 (executado no processo pai)" << endl;
     }
 
     exit(0);
-
-    /* for (unsigned int name : names)
-    {
-        std::cout << name << std::endl;
-    } */
 }
