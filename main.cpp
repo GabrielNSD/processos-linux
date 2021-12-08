@@ -23,7 +23,7 @@ int main()
 {
     std::ifstream file("enderecos.dat");
 
-    std::vector<unsigned short> addresses; //short tem 16 bits, int tem 32
+    std::vector<unsigned short> addresses; // short tem 16 bits, int tem 32
 
     int pid;
 
@@ -72,6 +72,10 @@ int main()
     else if (pid == 0)
     {
         cout << "codigo do processo filho 2 em execucao " << getpid() << endl;
+
+        int TAMANHO_CACHE = 32;
+
+        struct cacheBlock *cache = inicializarBloco(TAMANHO_CACHE);
         exit(1);
     }
     else
