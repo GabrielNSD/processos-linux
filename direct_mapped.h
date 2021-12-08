@@ -9,7 +9,8 @@ numeroDoBlocoNaMemPrincipal/TotalDeLinhasNaCache = NumeroDaLinhaASerOcupada (res
 
 */
 
-struct extractData { 
+struct extractData 
+{ 
     unsigned short tag;
     unsigned short line;
 };
@@ -20,10 +21,13 @@ struct extractData {
  * @param address 
  * @return struct extractData 
  */
-struct extractData returnData (unsigned short address) { //ERRADA, considerar também o offset do endereco
-    unsigned short temp = address << 10;
-    unsigned short tag = address >> 6;
-    unsigned short line = temp >> 10;
+struct extractData returnData (unsigned short address) 
+{ 
+    unsigned short temp = address & 65528; // remove o offset - 65528 = 1111111111111000
+    unsigned short tag = temp & 65024;  //zera os 9 dígitos menos significativos - 65024 = 1111111000000000
+    tag = tag >> 9;                     // remove os 9 zeros menos significativos
+    unsigned short line = temp & 504;   // retorna os 9 dígitos menos significativos, zerando os 3 menos significativos - 504 = 111111000
+    line = line >> 3;
     return {tag, line};
 }
 
