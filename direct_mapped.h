@@ -9,7 +9,7 @@ numeroDoBlocoNaMemPrincipal/TotalDeLinhasNaCache = NumeroDaLinhaASerOcupada (res
 
 */
 
-struct extractData {
+struct extractData { 
     unsigned short tag;
     unsigned short line;
 };
@@ -20,7 +20,7 @@ struct extractData {
  * @param address 
  * @return struct extractData 
  */
-struct extractData returnData (unsigned short address) {
+struct extractData returnData (unsigned short address) { //ERRADA, considerar também o offset do endereco
     unsigned short temp = address << 10;
     unsigned short tag = address >> 6;
     unsigned short line = temp >> 10;
