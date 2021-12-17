@@ -33,9 +33,6 @@ struct extractData returnData(unsigned short address)
 
 void directMapped(struct CacheLine *cache, int tamanhoCache, vector<unsigned short> memory)
 {
-    cout << "dentro da funcao directMapped " << endl;
-
-    // cout << "size " << memory.size() << endl;
 
     int acertos = 0;
     int erros = 0;
@@ -45,11 +42,9 @@ void directMapped(struct CacheLine *cache, int tamanhoCache, vector<unsigned sho
         struct extractData convertido = returnData(memory[i]);
         unsigned short tag = convertido.tag;
         unsigned short line = convertido.line;
-        // cout << convertido.tag << " " << convertido.line << endl;
 
         if (cache[line].validade)
         {
-            // cout << "valido " << endl;
             if (cache[line].tag == tag)
             {
                 acertos++;
@@ -62,7 +57,6 @@ void directMapped(struct CacheLine *cache, int tamanhoCache, vector<unsigned sho
         }
         else
         {
-            // cout << "invalido" << endl;
             erros++;
             cache[line].validade = true;
             cache[line].tag = tag;

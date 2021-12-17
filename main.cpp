@@ -51,7 +51,6 @@ int main()
         int TAMANHO_CACHE = 64;
 
         struct CacheLine *cache = inicializar(TAMANHO_CACHE);
-        cout << endl;
         directMapped(cache, TAMANHO_CACHE, addresses);
 
         exit(1);
