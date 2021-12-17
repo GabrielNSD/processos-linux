@@ -10,6 +10,7 @@
 
 #include "./cache_interface.h"
 #include "./direct_mapped.h"
+#include "./cache_associativa.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ int main()
 
     std::vector<unsigned short> addresses; // short tem 16 bits, int tem 32
 
-    int pid;
+    int pid, pid_2;
 
     unsigned short input;
     while (file >> input)
@@ -62,20 +63,21 @@ int main()
     }
 
     // Segundo processo filho, mapeamento associativo
-    pid = fork();
+    pid_2 = fork();
 
-    if (pid == -1)
+    if (pid_2 == -1)
     {
         cout << "impossivel criar um filho" << endl;
         exit(-1);
     }
-    else if (pid == 0)
+    else if (pid_2 == 0)
     {
         cout << "codigo do processo filho 2 em execucao " << getpid() << endl;
 
         int TAMANHO_CACHE = 32;
 
         struct cacheBlock *cache = inicializarBloco(TAMANHO_CACHE);
+        mapeamentoAssociativo(cache, TAMANHO_CACHE, addresses);
         exit(1);
     }
     else
