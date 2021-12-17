@@ -21,7 +21,7 @@ struct cacheLineAM
 {
     bool permissao;
     bool validade;
-    bool tag;
+    unsigned int tag;
 };
 
 struct cacheBlock
